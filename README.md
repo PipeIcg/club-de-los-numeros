@@ -6,7 +6,7 @@ Guía interactiva de Matemática para 2.º básico, en español de Chile. Proyec
 
 La portada organiza el aprendizaje en Matemáticas (disponible), Lenguaje, Historia y Ciencias (próximamente). Las 12 misiones de Matemáticas y su progreso se conservan.
 
-La sección **Preparar control** (`#control-restas`) cubre sustracciones sin canje hasta 999, según el aviso del curso para el jueves 29 de octubre de 2026. Incluye un ejemplo por columnas, práctica de cinco restas con pistas y un ensayo de diez restas con respuestas escritas. El ensayo permite retroceder y cambiar respuestas; solo muestra la corrección al terminar. No usa cronómetro ni asigna una nota escolar. Los resultados se guardan aparte de las estrellas de las misiones.
+La sección **Preparar control** (`#control-restas`) cubre sustracciones sin canje hasta 999, según el aviso del curso para el jueves 29 de octubre de 2026. Incluye un ejemplo por columnas, práctica progresiva de quince restas con pistas (cinco con dos cifras, cinco con centenas hasta 599 y cinco con números de 600 a 999) y un ensayo de diez restas con respuestas escritas. El ensayo permite retroceder y cambiar respuestas; solo muestra la corrección al terminar. No usa cronómetro ni asigna una nota escolar. Los resultados se guardan aparte de las estrellas de las misiones.
 
 `control.js` contiene esta sección. Para verificar su generación de ejercicios, ejecuta `node tests/control.cjs`.
 
@@ -57,3 +57,7 @@ Si el almacenamiento está bloqueado, se puede jugar durante la sesión, pero el
 Para verificar la lógica: `node tests/check.cjs`.
 
 La ilustración y los recursos geométricos son SVG propios. La guía se basa en el temario de referencia; está pensada para complementar el aprendizaje con acompañamiento adulto.
+
+Las rondas del control no repiten operaciones. El resultado cero aparece como máximo una vez por ronda y solo se incluye en aproximadamente el 25 % de las rondas. El ensayo mantiene diez preguntas.
+
+La práctica ofrece una resolución guiada interactiva: comprueba que no se necesita canje, comienza por las unidades y pregunta cuánto falta desde la cifra de abajo hasta la de arriba. Solo avanza a decenas y centenas tras una respuesta correcta; después el estudiante reúne las cifras C–D–U y escribe el resultado. Las pistas simples orientan sin revelar las respuestas. El ensayo conserva la resolución independiente.
