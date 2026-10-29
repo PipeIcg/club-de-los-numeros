@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#245d4d">
-  <meta name="description" content="Una aventura de matemáticas para segundo básico: aprende, practica y descubre los números a tu ritmo.">
+  <meta name="description" content="Tu espacio para aprender en segundo básico. Explora Matemáticas y prepara tu control de sustracciones sin canje hasta 999.">
   <title>Club de los números · 2.º básico</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
+  <script src="./control.js" defer></script>
   <script src="./app.js" defer></script>
 </head>
 <body>
@@ -16,17 +17,18 @@
     <a class="brand" href="#inicio" aria-label="Club de los números, inicio"><span class="brand-icon">✳</span><span>club de los<br><strong>números.</strong></span></a>
     <div class="grade-label">PARA MENTES CURIOSAS · 2.º BÁSICO</div>
     <nav aria-label="Navegación principal">
-      <a href="#inicio" data-nav="inicio"><span>⌂</span> Mi aventura</a>
-      <a href="#temas" data-nav="temas"><span>▦</span> Explorar temas <small>12</small></a>
+      <a href="#inicio" data-nav="inicio"><span>⌂</span> Asignaturas</a>
+      <a href="#matematicas" data-nav="matematicas"><span>▦</span> Matemáticas</a>
+      <a href="#control-restas" data-nav="control-restas"><span>✎</span> Preparar control</a>
       <a href="#logros" data-nav="logros"><span>☆</span> Mis logros</a>
     </nav>
     <div class="side-bottom"><div class="little-plant" aria-hidden="true">🌱</div><h3>Poquito a poquito,<br>¡aprendes muchísimo!</h3><p>Aquí no hay apuro.<br>Cada intento cuenta.</p><button class="text-button" id="adult-help">Guía para acompañantes ↗</button></div>
     <span class="sidebar-foot">HECHO PARA APRENDER JUGANDO</span>
   </aside>
   <div class="page">
-    <header class="topbar"><span class="breadcrumb">MI PEQUEÑO GRAN MUNDO MATEMÁTICO</span><div class="top-actions"><button id="sound-toggle" class="sound-button" aria-pressed="false" aria-label="Activar sonidos">♫ <span>Sonido apagado</span></button><div class="star-total" aria-label="Estrellas ganadas"><span>★</span> <b id="total-stars">0</b></div><button class="help-button" id="header-help" aria-label="Guía para acompañantes">?</button><span class="avatar" aria-label="Tu explorador">☺</span></div></header>
+    <header class="topbar"><span class="breadcrumb">MI PEQUEÑO GRAN MUNDO DE APRENDIZAJE</span><div class="top-actions"><button id="sound-toggle" class="sound-button" aria-pressed="false" aria-label="Activar sonidos">♫ <span>Sonido apagado</span></button><div class="star-total" aria-label="Estrellas ganadas"><span>★</span> <b id="total-stars">0</b></div><button class="help-button" id="header-help" aria-label="Guía para acompañantes">?</button><span class="avatar" aria-label="Tu explorador">☺</span></div></header>
     <main id="main" tabindex="-1"></main>
-    <footer>Un número, un descubrimiento a la vez. <span>Hecho con curiosidad y un poquito de magia ✦</span></footer>
+    <footer>Un descubrimiento a la vez. <span>Hecho con curiosidad y un poquito de magia ✦</span></footer>
   </div>
   <dialog id="help-dialog"><button class="dialog-close" aria-label="Cerrar">×</button><span class="eyebrow">APRENDER EN COMPAÑÍA</span><h2>Una aventura a su ritmo</h2><p>Esta guía cubre los 12 temas del temario de Matemática de 2.º básico. Cada misión tiene una explicación y cinco ejercicios que cambian al volver a jugar.</p><ul><li>Empiecen por «Aprende» y prueben juntos el ejemplo.</li><li>Usen «Una pista» cuando lo necesiten. Equivocarse permite volver a intentar.</li><li>Las sumas y restas se practican sin reserva, con números de hasta 999.</li><li>En dinero usamos pesos chilenos. En medición: centímetros, litros y horas en punto.</li><li>El progreso se guarda solo en este navegador. No se envían datos ni se necesita una cuenta.</li></ul><p class="muted">Se recomienda acompañar la lectura y hacer pausas entre misiones. El botón «Escuchar» depende de las voces disponibles en el dispositivo.</p><button class="primary dialog-done">¡A explorar!</button></dialog>
   <div id="toast" class="toast" role="status"></div>

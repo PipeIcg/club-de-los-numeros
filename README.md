@@ -2,6 +2,14 @@
 
 Guía interactiva de Matemática para 2.º básico, en español de Chile. Proyecto independiente en HTML, CSS y JavaScript, sin framework ni dependencias de instalación.
 
+## Asignaturas y preparación de controles
+
+La portada organiza el aprendizaje en Matemáticas (disponible), Lenguaje, Historia y Ciencias (próximamente). Las 12 misiones de Matemáticas y su progreso se conservan.
+
+La sección **Preparar control** (`#control-restas`) cubre sustracciones sin canje hasta 999, según el aviso del curso para el jueves 29 de octubre de 2026. Incluye un ejemplo por columnas, práctica de cinco restas con pistas y un ensayo de diez restas con respuestas escritas. El ensayo permite retroceder y cambiar respuestas; solo muestra la corrección al terminar. No usa cronómetro ni asigna una nota escolar. Los resultados se guardan aparte de las estrellas de las misiones.
+
+`control.js` contiene esta sección. Para verificar su generación de ejercicios, ejecuta `node tests/control.cjs`.
+
 ## Abrir
 
 Abre `index.html` directamente en un navegador moderno. También puedes usar Live Server en VS Code o ejecutar `node scripts/serve.cjs` y abrir `http://127.0.0.1:4173`. La tipografía de Google Fonts necesita conexión; si no está disponible, se usan fuentes del dispositivo. Los ejercicios y gráficos no dependen de servicios externos.

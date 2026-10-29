@@ -4,12 +4,18 @@ const $ = (selector) => document.querySelector(selector);
 const main = $('#main');
 const STORAGE_KEY = 'club-numeros-v1';
 let storageAvailable = true;
-let progress = { lessons: {}, sound: false, challenges: 0 };
+let progress = { lessons: {}, sound: false, challenges: 0, control: { practices:0, exams:0, best:0 } };
 try {
   const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
   if (saved && typeof saved === 'object') {
     progress.sound = saved.sound === true;
     progress.challenges = Number.isInteger(saved.challenges) && saved.challenges > 0 ? saved.challenges : 0;
+    if(saved.control && typeof saved.control==='object') {
+      for(const key of ['practices','exams','best']) {
+        const value=saved.control[key];
+        if(Number.isInteger(value)&&value>=0&&(key!=='best'||value<=10))progress.control[key]=value;
+      }
+    }
     if (saved.lessons && typeof saved.lessons === 'object') {
       for (const [id, score] of Object.entries(saved.lessons)) {
         if (score && Number.isInteger(score.stars) && score.stars >= 1 && score.stars <= 3) {
@@ -188,10 +194,18 @@ function topicCards() {
   const filtered=topics.filter(t=>activeFilter==='todos'||(activeFilter==='pendientes'?!progress.lessons[t.id]?.completed:t.group===activeFilter));
   return filtered.length?filtered.map(t=>`<button class="topic-card" data-topic="${t.id}" style="--tint:${t.tint};--accent:${t.color}" aria-label="${t.short}${progress.lessons[t.id]?`, ${progress.lessons[t.id].stars} estrellas`:''}"><div class="card-top">${icon(t)}<span class="topic-number">${String(topics.indexOf(t)+1).padStart(2,'0')}</span></div><h3>${t.short}</h3><p>${t.desc}</p><div class="card-bottom">${progress.lessons[t.id]?`<span class="card-stars" aria-label="${progress.lessons[t.id].stars} de 3 estrellas">${stars(progress.lessons[t.id].stars)}</span>`:'<small>5 desafíos · a tu ritmo</small>'}<span class="card-arrow" aria-hidden="true">↗</span></div></button>`).join(''):'<p class="empty-filter">¡Completaste todas las misiones! Puedes volver a jugar para ganar más estrellas.</p>';
 }
+function controlBanner() {
+  return `<section class="control-banner" aria-labelledby="control-banner-title"><span class="control-banner-icon" aria-hidden="true">✎</span><div><span class="eyebrow">PREPÁRATE CON CONFIANZA</span><h2 id="control-banner-title">Un control, muchos pequeños pasos</h2><p>Sustracciones sin canje hasta 999 · <time datetime="2026-10-29">Jueves 29 de octubre</time></p></div><a class="primary" href="#control-restas">Preparar mi control →</a></section>`;
+}
+function renderSubjects() {
+  session=null;
+  main.innerHTML=`<div class="greeting"><div><h1>¡Hola, explorador! <span aria-hidden="true">☀️</span></h1><p>Un mundo de cosas por descubrir, a tu ritmo.</p></div><span class="date-pill">2.º básico · Aquí crece tu curiosidad</span></div><section class="hero"><div class="hero-copy"><span class="eyebrow">PEQUEÑOS PASOS, GRANDES DESCUBRIMIENTOS</span><h2>Aprender es<br>una <span>aventura.</span></h2><p>Elige una asignatura y descubre todo lo que puedes aprender jugando.</p><a class="primary" href="#matematicas">Explorar Matemáticas →</a></div><div class="hero-art">${heroArt}</div></section><section class="subjects-section" aria-labelledby="subjects-title"><div class="section-heading"><div><h2 id="subjects-title">Mis asignaturas</h2><p>Comenzamos con números. ¡Pronto habrá más aventuras!</p></div><span class="count-pill">2.º básico</span></div><div class="subject-grid"><a class="subject-card available" href="#matematicas"><span class="subject-emoji" aria-hidden="true">🔢</span><span class="subject-status">● Disponible</span><h3>Matemáticas</h3><p>Números, formas y pequeños grandes desafíos.</p><span class="subject-bottom">${completedCount()} de 12 misiones completadas <b aria-hidden="true">→</b></span></a>${[['📖','Lenguaje','Letras, palabras e historias por descubrir.'],['🌎','Historia','Personas, lugares y aventuras del pasado.'],['🌱','Ciencias','Preguntas y descubrimientos sobre nuestro mundo.']].map(([emoji,title,desc])=>`<article class="subject-card coming-soon" aria-label="${title}, próximamente"><span class="subject-emoji" aria-hidden="true">${emoji}</span><span class="subject-status">Próximamente</span><h3>${title}</h3><p>${desc}</p><span class="subject-bottom">Una nueva aventura está en camino <span aria-hidden="true">✦</span></span></article>`).join('')}</div></section>${controlBanner()}<p class="saved-note">Tus estrellas y misiones de Matemáticas siguen aquí. ¡Continúa donde lo dejaste!</p>`;
+}
 function renderHome(explore=false) {
   session=null;
   const done=completedCount(), next=topics.find(t=>!progress.lessons[t.id]?.completed)||topics[0];
   main.innerHTML=`${!explore?`<div class="greeting"><div><h1>¡Hola, explorador! <span aria-hidden="true">☀️</span></h1><p>Hoy es un buen día para descubrir algo nuevo.</p></div><span class="date-pill">✦ Tu próxima aventura comienza aquí</span></div><section class="hero" aria-label="Bienvenida"><div class="hero-copy"><span class="eyebrow">PEQUEÑOS PASOS, GRANDES DESCUBRIMIENTOS</span><h2>Las matemáticas<br>son una <span>aventura.</span></h2><p>Juega con los números, resuelve misterios<br>y aprende a tu propio ritmo.</p><button class="primary" data-topic="${next.id}">${done?'Seguir mi aventura':'¡Comenzar a explorar!'} <span>→</span></button></div><div class="hero-art">${heroArt}</div><span class="hero-caption">¡Vamos a descubrir juntos!</span></section><div class="progress-strip"><div class="progress-label"><span class="progress-emoji">🌱</span><div><strong>${done===12?'¡Tu aventura floreció!':'Tu aventura va creciendo'}</strong><small>${done} de 12 misiones completadas</small></div></div><div class="track" role="progressbar" aria-label="Misiones completadas" aria-valuenow="${done}" aria-valuemin="0" aria-valuemax="12"><span style="width:${done/12*100}%"></span></div><span class="progress-meta">${done===0?'¡Todo empieza con un primer paso!':`${totalStars()} estrellas de 36 posibles`}</span></div>`:''}<section aria-labelledby="topics-title"><div class="section-heading"><div><h2 id="topics-title">${explore?'Tu mapa de descubrimientos':'¿Qué descubrimos hoy?'}</h2><p>Elige una misión. ¡Puedes empezar por la que más te guste!</p></div><span class="count-pill">12 misiones</span></div><div class="filter-row" role="group" aria-label="Filtrar temas">${[['todos','Todos'],['numeros','Números'],['calculo','A calcular'],['mundo','Mi mundo'],['pendientes','Por descubrir']].map(([id,label])=>`<button class="filter ${activeFilter===id?'selected':''}" data-filter="${id}" aria-pressed="${activeFilter===id}">${label}</button>`).join('')}</div><div class="topic-grid">${topicCards()}</div></section><section class="challenge-banner"><span aria-hidden="true">🎒</span><div><h3>¿Te animas a una misión sorpresa?</h3><p>Un poquito de cada tema. ¡Descubre todo lo que sabes!</p></div><button id="mixed-challenge">¡Acepto el desafío! ↗</button></section>`;
+  main.insertAdjacentHTML('afterbegin',`<a class="back-button" href="#inicio">← Mis asignaturas</a><div class="subject-page-title"><span class="eyebrow">MI ASIGNATURA</span><h1>Matemáticas</h1></div>${controlBanner()}`);
 }
 function example(t) {
   switch(t.example) { case 'blocks':return blocks(132);case 'chart':return chart();case 'shapes':return `<div style="display:flex;justify-content:center;gap:15px;flex-wrap:wrap">${shape('triángulo')}${shape('cubo')}</div>`;case 'coins':return coins([100,10,10]);case 'measure':return rulerVisual(6);default:return `<div class="equation">${escapeHTML(t.example)}</div>`; }
@@ -257,9 +271,15 @@ function route() {
   if('speechSynthesis' in window)window.speechSynthesis.cancel();
   const hash=location.hash.slice(1)||'inicio';
   if(hash==='main'){focusMain();return;}
-  document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('active',a.dataset.nav===(hash.startsWith('mision/')||hash==='sorpresa'?'temas':hash)));
-  if(hash==='inicio')renderHome();
+  const nav=hash.startsWith('control-restas')?'control-restas':hash.startsWith('mision/')||['sorpresa','temas','matematicas'].includes(hash)?'matematicas':hash;
+  document.querySelectorAll('[data-nav]').forEach(a=>a.classList.toggle('active',a.dataset.nav===nav));
+  $('.breadcrumb').textContent=nav==='matematicas'?'MIS ASIGNATURAS / MATEMÁTICAS':nav==='control-restas'?'MATEMÁTICAS / PREPARAR MI CONTROL':'MI PEQUEÑO GRAN MUNDO DE APRENDIZAJE';
+  if(hash==='inicio')renderSubjects();
+  else if(hash==='matematicas')renderHome(true);
   else if(hash==='temas')renderHome(true);
+  else if(hash==='control-restas')renderControlHome();
+  else if(hash==='control-restas/practica')startControl('practica');
+  else if(hash==='control-restas/ensayo')startControl('ensayo');
   else if(hash==='logros')renderAchievements();
   else if(hash==='sorpresa')startSession('sorpresa');
   else if(hash.startsWith('mision/'))renderLesson(hash.split('/')[1]);
