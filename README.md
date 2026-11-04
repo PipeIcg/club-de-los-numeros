@@ -4,9 +4,9 @@ Una guía interactiva para 2.º básico, hecha con HTML, CSS y JavaScript y publ
 
 ## Historia y Geografía
 
-La sección `#historia` contiene siete misiones sobre puntos cardinales, continentes y océanos, elementos del paisaje, zonas naturales de Chile, pueblos originarios, comprensión lectora y análisis de imágenes. Incluye explicaciones, brújula, planisferio con botones para explorar, una lectura, una escena visual, cinco preguntas por misión, pistas, audio del navegador, estrellas y un ensayo de 14 preguntas. Los progresos de Historia se guardan por separado de Matemáticas en el navegador.
+La sección `#historia` contiene siete misiones sobre puntos cardinales, continentes y océanos, elementos del paisaje, zonas naturales de Chile, pueblos originarios, comprensión lectora y análisis de imágenes. Incluye explicaciones, brújula, planisferio con botones para explorar, una lectura, una escena visual, prácticas cortas o completas, pistas, audio del navegador, estrellas y un ensayo de 37 preguntas. Los progresos de Historia se guardan por separado de Matemáticas en el navegador.
 
-La guía sigue los materiales de clase proporcionados: cuatro zonas (norte, central, sur y austral), seis continentes, mapas, y modos de vida históricos de pueblos originarios. Una ronda de práctica selecciona cinco preguntas de cada banco; el ensayo toma dos de cada tema. Las comunidades originarias son actuales y diversas. El mapa es una representación simplificada.
+La guía sigue los materiales de clase proporcionados: cuatro zonas (norte, central, sur y austral), seis continentes, mapas, y modos de vida históricos de pueblos originarios. La práctica corta selecciona cinco preguntas y el repaso completo utiliza todas las preguntas del tema. El ensayo de 37 preguntas cubre grupos de contenido de los siete temas. Las comunidades originarias son actuales y diversas. El mapa es una representación simplificada.
 
 El planisferio usa geometrías simplificadas de [Natural Earth](https://www.naturalearthdata.com/), de dominio público. Es un mapa esquemático sin fronteras.
 
